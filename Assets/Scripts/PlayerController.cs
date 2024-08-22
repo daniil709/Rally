@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     public float speed;
     public float rotateSpeed;
+    public GameManager gm;
 
     // Start is called before the first frame update
     void Start()
@@ -29,6 +30,20 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey(KeyCode.A))
         {
             transform.Rotate(Vector3.down * rotateSpeed * Time.deltaTime);
+        }
+
+        if (Input.GetKey(KeyCode.D))
+        {
+            transform.Rotate(Vector3.up * rotateSpeed * Time.deltaTime);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Checkpoint"))
+        {
+            Debug.Log("Checkpoint");
+            gm.CheckpointReached(other.gameObject);
         }
     }
 }
